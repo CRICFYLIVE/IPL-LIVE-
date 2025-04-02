@@ -43,7 +43,15 @@
             align-items: center;
             width: 100%;
             max-width: 800px;
+            height: 450px;
             position: relative;
+            background: black;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .video-js {
+            width: 100% !important;
+            height: 100% !important;
         }
         .video-js .vjs-big-play-button {
             top: 50% !important;
@@ -64,7 +72,7 @@
         <h1>📺 Live IPL Match - Star Sports 1 Hindi</h1>
         <marquee class="scrolling-text">Follow @cricfylive for latest updates!</marquee>
         <div class="video-container">
-            <video id="live-stream" class="video-js vjs-default-skin" controls autoplay width="100%" height="auto">
+            <video id="live-stream" class="video-js vjs-default-skin" controls autoplay>
                 <source src="https://corsproxy.io/?https://m3u8x2.cloudycx.net/mediax4/hls/files/1080p.m3u8" type="application/x-mpegURL">
             </video>
         </div>
