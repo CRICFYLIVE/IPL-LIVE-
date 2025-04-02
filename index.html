@@ -6,7 +6,7 @@
     <title>Live IPL Streaming</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.11.8/video-js.min.css" rel="stylesheet">
     <style>
-        body { text-align: center; background-color: black; color: white; }
+        body { text-align: center; background-color: black; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; }
         h1 { font-size: 24px; }
         .container { max-width: 800px; margin: auto; }
         .scrolling-text {
@@ -26,7 +26,7 @@
             margin-top: 10px;
         }
         .popup {
-            display: none;
+            display: block;
             position: fixed;
             top: 50%;
             left: 50%;
@@ -35,10 +35,18 @@
             padding: 20px;
             border: 2px solid yellow;
             text-align: center;
+            z-index: 1000;
         }
     </style>
 </head>
 <body>
+    <div class="popup" id="popup">
+        <h3>Support Us!</h3>
+        <p>Join our Telegram channel <b>CRICFyLive</b> for more updates.</p>
+        <button onclick="window.location.href='https://t.me/cricfylive'">Join Now</button>
+        <button onclick="closePopup()">Already Joined</button>
+    </div>
+    
     <div class="container">
         <h1>📺 Live IPL Match - Star Sports 1 Hindi</h1>
         <marquee class="scrolling-text">Follow @cricfylive for latest updates!</marquee>
@@ -47,14 +55,7 @@
         </video>
         <button class="join-btn" onclick="showPopup()">Join Telegram</button>
     </div>
-
-    <div class="popup" id="popup">
-        <h3>Support Us!</h3>
-        <p>Join our Telegram channel <b>CRICFyLive</b> for more updates.</p>
-        <button onclick="window.location.href='https://t.me/cricfylive'">Join Now</button>
-        <button onclick="closePopup()">Already Joined</button>
-    </div>
-
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.11.8/video.min.js"></script>
     <script>
         var player = videojs('live-stream');
@@ -65,6 +66,11 @@
         }
         function closePopup() {
             document.getElementById("popup").style.display = "none";
+        }
+
+        // Show popup automatically when the website loads
+        window.onload = function() {
+            showPopup();
         }
     </script>
 </body>
