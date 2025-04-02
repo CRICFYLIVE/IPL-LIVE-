@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live IPL Streaming</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.11.8/video-js.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
         body {
             text-align: center;
@@ -17,100 +17,75 @@
             height: 100vh;
             margin: 0;
         }
+        .container {
+            max-width: 800px;
+            width: 90%;
+        }
         h1 {
             font-size: 24px;
         }
-        .container {
-            max-width: 800px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .scrolling-text {
-            white-space: nowrap;
-            overflow: hidden;
-            display: block;
-            width: 100%;
-            color: yellow;
-            font-weight: bold;
-        }
-        .join-btn {
-            background-color: blue;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        .popup {
-            display: block;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: black;
-            padding: 20px;
-            border: 2px solid yellow;
-            text-align: center;
-            z-index: 1000;
-        }
         .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            aspect-ratio: 16 / 9;
+            background: black;
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 100%;
-            max-width: 800px;
-            position: relative;
         }
-        .video-js {
+        video {
             width: 100%;
-            max-width: 800px;
-            height: 450px;
-            border-radius: 10px;
+            height: 100%;
+            display: block;
         }
-        .vjs-big-play-button {
-            top: 50% !important;
-            left: 50% !important;
-            transform: translate(-50%, -50%) !important;
+        .play-btn {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .play-btn::after {
+            content: '▶';
+            font-size: 36px;
+            color: white;
         }
     </style>
 </head>
 <body>
-    <div class="popup" id="popup">
-        <h3>Support Us!</h3>
-        <p>Join our Telegram channel <b>CRICFyLive</b> for more updates.</p>
-        <button onclick="window.location.href='https://t.me/cricfylive'">Join Now</button>
-        <button onclick="closePopup()">Already Joined</button>
-    </div>
-    
     <div class="container">
-        <h1>📺 Live IPL Match - Star Sports 1 Hindi</h1>
-        <marquee class="scrolling-text">Follow @cricfylive for latest updates!</marquee>
+        <h1> IPL 2025 Live - Hindi</h1>
+        <marquee style="color: yellow; font-weight: bold;">Follow @cricfylive for latest updates!</marquee>
         <div class="video-container">
-            <video id="live-stream" class="video-js vjs-default-skin" controls autoplay>
-                <source src="https://vkvsd250.okcdn.ru/cmaf/8177201777196/sig/j6X5gf0MwQc/srcIp/172.69.95.67/urls/45.136.22.65/expires/1743885970114/clientType/13/srcAg/CHROME/fromCache/1/mid/9469206211372/id/8177201777196/get/hls_9469206211372.VaRDHyXezr0.m3u8" type="application/x-mpegURL">
-            </video>
+            <video id="videoPlayer" controls></video>
+            <div class="play-btn" id="playButton"></div>
         </div>
-        <button class="join-btn" onclick="showPopup()">Join Telegram</button>
     </div>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.11.8/video.min.js"></script>
+
     <script>
-        var player = videojs('live-stream');
-        player.play();
+        const video = document.getElementById("videoPlayer");
+        const playButton = document.getElementById("playButton");
 
-        function showPopup() {
-            document.getElementById("popup").style.display = "block";
-        }
-        function closePopup() {
-            document.getElementById("popup").style.display = "none";
+        if (Hls.isSupported()) {
+            const hls = new Hls();
+            hls.loadSource("https://vkvsd250.okcdn.ru/cmaf/8177201777196/sig/j6X5gf0MwQc/srcIp/172.69.95.67/urls/45.136.22.65/expires/1743885970114/clientType/13/srcAg/CHROME/fromCache/1/mid/9469206211372/id/8177201777196/get/hls_9469206211372.VaRDHyXezr0.m3u8");
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                console.log("Stream loaded successfully.");
+            });
+        } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+            video.src = "https://vkvsd250.okcdn.ru/cmaf/8177201777196/sig/j6X5gf0MwQc/srcIp/172.69.95.67/urls/45.136.22.65/expires/1743885970114/clientType/13/srcAg/CHROME/fromCache/1/mid/9469206211372/id/8177201777196/get/hls_9469206211372.VaRDHyXezr0.m3u8";
         }
 
-        // Show popup automatically when the website loads
-        window.onload = function() {
-            showPopup();
-        }
+        playButton.addEventListener("click", function() {
+            video.play();
+            playButton.style.display = "none";
+        });
     </script>
 </body>
 </html>
