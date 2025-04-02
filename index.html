@@ -6,9 +6,27 @@
     <title>Live IPL Streaming</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.11.8/video-js.min.css" rel="stylesheet">
     <style>
-        body { text-align: center; background-color: black; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; }
-        h1 { font-size: 24px; }
-        .container { max-width: 800px; margin: auto; display: flex; flex-direction: column; align-items: center; }
+        body {
+            text-align: center;
+            background-color: black;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
         .scrolling-text {
             white-space: nowrap;
             overflow: hidden;
@@ -42,6 +60,19 @@
             justify-content: center;
             align-items: center;
             width: 100%;
+            max-width: 800px;
+            position: relative;
+        }
+        .video-js {
+            width: 100%;
+            max-width: 800px;
+            height: 450px;
+            border-radius: 10px;
+        }
+        .vjs-big-play-button {
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
         }
     </style>
 </head>
@@ -57,8 +88,8 @@
         <h1>📺 Live IPL Match - Star Sports 1 Hindi</h1>
         <marquee class="scrolling-text">Follow @cricfylive for latest updates!</marquee>
         <div class="video-container">
-            <video id="live-stream" class="video-js vjs-default-skin" controls autoplay width="800" height="450">
-                <source src="https://webplayer-live.pages.dev?url=https://vkvsd250.okcdn.ru/cmaf/8177201777196/sig/j6X5gf0MwQc/srcIp/172.69.95.67/urls/45.136.22.65/expires/1743885970114/clientType/13/srcAg/CHROME/fromCache/1/mid/9469206211372/id/8177201777196/get/hls_9469206211372.VaRDHyXezr0.m3u8" type="application/x-mpegURL">
+            <video id="live-stream" class="video-js vjs-default-skin" controls autoplay>
+                <source src="https://vkvsd250.okcdn.ru/cmaf/8177201777196/sig/j6X5gf0MwQc/srcIp/172.69.95.67/urls/45.136.22.65/expires/1743885970114/clientType/13/srcAg/CHROME/fromCache/1/mid/9469206211372/id/8177201777196/get/hls_9469206211372.VaRDHyXezr0.m3u8" type="application/x-mpegURL">
             </video>
         </div>
         <button class="join-btn" onclick="showPopup()">Join Telegram</button>
