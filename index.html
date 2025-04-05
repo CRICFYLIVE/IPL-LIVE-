@@ -1,91 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live IPL Streaming</title>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <style>
-        body {
-            text-align: center;
-            background-color: black;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            max-width: 800px;
-            width: 90%;
-        }
-        h1 {
-            font-size: 24px;
-        }
-        .video-container {
-            position: relative;
-            width: 100%;
-            max-width: 800px;
-            aspect-ratio: 16 / 9;
-            background: black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        video {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-        .play-btn {
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-        .play-btn::after {
-            content: '▶';
-            font-size: 36px;
-            color: white;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IPL 2025 LIVE TV</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(to bottom, #001f3f, #0074D9);
+      font-family: 'Arial', sans-serif;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      color: #ffdc00;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px #111;
+    }
+
+    #liveCount {
+      font-size: 18px;
+      margin-bottom: 20px;
+      font-weight: bold;
+      color: #00ffcc;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+      margin: auto;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    }
+
+    iframe {
+      width: 100%;
+      height: 220px;
+    }
+
+    .join-btn {
+      margin-top: 20px;
+      background: black;
+      color: white;
+      font-size: 18px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      box-shadow: 0 0 10px #0f0;
+    }
+
+    .note {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #ffcccc;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1> IPL 2025 Live - Hindi</h1>
-        <marquee style="color: yellow; font-weight: bold;">Follow @cricfylive for latest updates!</marquee>
-        <div class="video-container">
-            <video id="videoPlayer" controls></video>
-            <div class="play-btn" id="playButton"></div>
-        </div>
-    </div>
+  <h1>IPL 2025 LIVE TV</h1>
+  <div id="liveCount">LIVE: 0 Watching</div>
 
-    <script>
-        const video = document.getElementById("videoPlayer");
-        const playButton = document.getElementById("playButton");
+  <div class="video-container">
+    <!-- Replace below src with your actual stream iframe or player -->
+    <iframe src="https://www.youtube.com/embed/ZyB9Dg3kFuY" frameborder="0" allowfullscreen></iframe>
+  </div>
 
-        if (Hls.isSupported()) {
-            const hls = new Hls();
-            hls.loadSource("https://vkvsd250.okcdn.ru/cmaf/8177201777196/sig/j6X5gf0MwQc/srcIp/172.69.95.67/urls/45.136.22.65/expires/1743885970114/clientType/13/srcAg/CHROME/fromCache/1/mid/9469206211372/id/8177201777196/get/hls_9469206211372.VaRDHyXezr0.m3u8");
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                console.log("Stream loaded successfully.");
-            });
-        } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-            video.src = "https://vkvsd250.okcdn.ru/cmaf/8177201777196/sig/j6X5gf0MwQc/srcIp/172.69.95.67/urls/45.136.22.65/expires/1743885970114/clientType/13/srcAg/CHROME/fromCache/1/mid/9469206211372/id/8177201777196/get/hls_9469206211372.VaRDHyXezr0.m3u8";
-        }
+  <button class="join-btn" onclick="window.open('https://t.me/cricfylive', '_blank')">Join Telegram</button>
+  <div class="note">🔥 Join @cricfylive for live updates and links!</div>
 
-        playButton.addEventListener("click", function() {
-            video.play();
-            playButton.style.display = "none";
-        });
-    </script>
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+  <script>
+    // Firebase config from your project
+    const firebaseConfig = {
+      apiKey: "AIzaSyAvEN3oBvGUs_Xm53Sbs4bwbB...",
+      authDomain: "cricfylive-ipl-live.firebaseapp.com",
+      databaseURL: "https://cricfylive-ipl-live-default-rtdb.firebaseio.com",
+      projectId: "cricfylive-ipl-live",
+      storageBucket: "cricfylive-ipl-live.appspot.com",
+      messagingSenderId: "685264651453",
+      appId: "1:685264651453:web:dcef3726742c...",
+      measurementId: "G-HK6LQQE6BQ"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // Live viewer system
+    const viewerRef = db.ref("liveViewers");
+    const userId = Date.now();
+
+    viewerRef.child(userId).set(true);
+    window.addEventListener("beforeunload", () => {
+      viewerRef.child(userId).remove();
+    });
+
+    viewerRef.on("value", (snapshot) => {
+      const liveCount = snapshot.numChildren();
+      document.getElementById("liveCount").innerText = `LIVE: ${liveCount} Watching`;
+    });
+  </script>
 </body>
 </html>
